@@ -1,0 +1,40 @@
+services:
+  node-exporter:
+    build: node-exporter
+#      args:
+#         FORMAT: ${FORMAT}
+    container_name: node-exporter
+    restart: always
+    ports:
+      - 9100:9100
+
+  prometheus:
+    depends_on:
+      - node-exporter
+    build: prometheus
+#      args:
+#        FORMAT: ${FORMAT}
+    container_name: prometheus
+    environment:
+      - FORMAT=FORMAT
+    restart: always
+    volumes:
+      -  ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+
+  grafana:
+    depends_on:
+      - prometheus
+    build: grafana
+    container_name: grafana
+    environment:
+      - FORMAT=FORMAT
+    restart: always
+    ports:
+      - 3000:3000
+
+networks:
+  docker-practice:
+
+
