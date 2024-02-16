@@ -3,7 +3,7 @@ services:
     build:
       context: node-exporter
       args:
-        FORMAT: ${FORMAT:-arm64}
+        - FORMAT=${FORMAT:-amd64}
     container_name: node-exporter
     networks:
       - docker-practice
@@ -17,7 +17,7 @@ services:
     build:
       context: prometheus
       args:
-        FORMAT: ${FORMAT:-arm64}
+        - FORMAT=${FORMAT:-amd64}
     container_name: prometheus
     networks:
       - docker-practice

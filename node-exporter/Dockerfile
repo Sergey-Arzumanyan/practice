@@ -4,8 +4,8 @@ LABEL maintainer="Tania Arutiunian, Sergey Arzumanyan"
 
 WORKDIR /node-exporter
 
-ARG FORMAT=arm64
-ARG NODE_EXPORTER_PORT=9100
+ARG FORMAT
+ARG NODE_EXPORTER_PORT
 
 ADD https://github.com/prometheus/node_exporter/releases/download/v1.5.0/node_exporter-1.5.0.linux-${FORMAT}.tar.gz .
 

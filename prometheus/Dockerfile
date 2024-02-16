@@ -4,8 +4,8 @@ LABEL maintainer="Tania Arutiunian, Sergey Arzumanyan"
 
 WORKDIR /prometheus
 
-ARG FORMAT=arm64
-ARG PROMETHEUS_PORT=9090
+ARG FORMAT
+ARG PROMETHEUS_PORT
 
 ADD https://github.com/prometheus/prometheus/releases/download/v2.37.6/prometheus-2.37.6.linux-${FORMAT}.tar.gz .
 
@@ -14,7 +14,7 @@ RUN tar xvfz prometheus-2.37.6.linux-${FORMAT}.tar.gz prometheus-2.37.6.linux-${
     mkdir /etc/prometheus /var/lib/prometheus && cd prometheus-2.37.6.linux-${FORMAT} && \
     mv prometheus promtool /usr/local/bin/ && mv consoles/ console_libraries/ /etc/prometheus/
 
-#COPY prometheus.yml /etc/prometheus/prometheus.yml
+# COPY prometheus.yml /etc/prometheus/prometheus.yml
 
 EXPOSE ${PROMETHEUS_PORT}
 
