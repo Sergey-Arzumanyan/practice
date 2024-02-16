@@ -1,34 +1,42 @@
 services:
   node-exporter:
-    build: node-exporter
+    build:
+      context: node-exporter
+      args:
+        FORMAT: ${FORMAT:-arm64}
     container_name: node-exporter
+    networks:
+      - docker-practice
     restart: always
     ports:
-      - ${NODE_EXPORTER_PORT}:9100
+      - ${NODE_EXPORTER_PORT:-9100}:9100
 
   prometheus:
     depends_on:
       - node-exporter
-    build: prometheus
+    build:
+      context: prometheus
+      args:
+        FORMAT: ${FORMAT:-arm64}
     container_name: prometheus
-    environment:
-      - FORMAT=FORMAT
+    networks:
+      - docker-practice
     restart: always
     volumes:
       -  ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
-      - ${PROMETHEUS_PORT}:9090
+      - ${PROMETHEUS_PORT:-9090}:9090
 
   grafana:
     depends_on:
       - prometheus
     build: grafana
     container_name: grafana
-    environment:
-      - FORMAT=FORMAT
+    networks:
+      - docker-practice
     restart: always
     ports:
-      - ${GRAFANA_PORT}:3000
+      - ${GRAFANA_PORT:-3000}:3000
 
 networks:
   docker-practice:

@@ -4,7 +4,8 @@ LABEL maintainer="Tania Arutiunian, Sergey Arzumanyan"
 
 WORKDIR /prometheus
 
-ARG FORMAT=amd64
+ARG FORMAT=arm64
+ARG PROMETHEUS_PORT=9090
 
 ADD https://github.com/prometheus/prometheus/releases/download/v2.37.6/prometheus-2.37.6.linux-${FORMAT}.tar.gz .
 
@@ -15,7 +16,7 @@ RUN tar xvfz prometheus-2.37.6.linux-${FORMAT}.tar.gz prometheus-2.37.6.linux-${
 
 #COPY prometheus.yml /etc/prometheus/prometheus.yml
 
-EXPOSE 9090
+EXPOSE ${PROMETHEUS_PORT}
 
 ENTRYPOINT ["/usr/local/bin/prometheus"]
 

@@ -4,6 +4,8 @@ LABEL maintainer="Tania Arutiunian, Sergey Arzumanyan"
 
 WORKDIR /grafana
 
+ARG GRAFANA_PORT=3000
+
 RUN apt-get update && \
     apt-get install -y apt-transport-https software-properties-common wget && \
     wget -q -O /usr/share/keyrings/grafana.key https://apt.grafana.com/gpg.key && \
@@ -11,7 +13,7 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y grafana
 
-EXPOSE 3000
+EXPOSE ${GRAFANA_PORT}
 
 ENTRYPOINT ["grafana-server"]
 
