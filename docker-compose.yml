@@ -35,6 +35,10 @@ services:
     networks:
       - docker-practice
     restart: always
+    volumes:
+      - ./grafana/dashboards/:/var/lib/grafana/dashboards/
+      - ./grafana/provisioning/dashboards/:/etc/grafana/provisioning/dashboards/
+      - ./grafana/provisioning/datasources/:/etc/grafana/provisioning/datasources/
     ports:
       - ${GRAFANA_PORT:-3000}:3000
 
