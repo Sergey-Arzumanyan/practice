@@ -35,12 +35,23 @@ services:
     networks:
       - docker-practice
     restart: always
+    environment:
+      - GF_PATHS_CONFIG=/etc/grafana/grafana.ini
+      - GF_PATHS_DATA=/var/lib/grafana
+      - GF_PATHS_HOME=/usr/share/grafana
+      # - GF_PATHS_LOGS=/var/log/grafana
+      # - GF_PATHS_PLUGINS=/var/lib/grafana/plugins
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
     volumes:
       - ./grafana/dashboards/:/var/lib/grafana/dashboards/
       - ./grafana/provisioning/dashboards/:/etc/grafana/provisioning/dashboards/
       - ./grafana/provisioning/datasources/:/etc/grafana/provisioning/datasources/
+      - grafana-data:/var/lib/grafana
     ports:
       - ${GRAFANA_PORT:-3000}:3000
+
+volumes:
+  grafana-data:
 
 networks:
   docker-practice:
