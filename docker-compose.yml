@@ -55,5 +55,3 @@ volumes:
 
 networks:
   docker-practice:
-
-
